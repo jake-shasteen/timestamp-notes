@@ -7,7 +7,9 @@ const eol = require( 'os' ).EOL;
 const moment = require( 'moment' );
 const now = moment();
 
-const FILENAME = now.format() + '.txt';
+if ( process.argv.length !== 3 ) printUsageAndExit();
+
+const FILENAME = `${process.argv[2]}.txt`;
 const FILEPATH = path.resolve( process.cwd(), './', FILENAME );
 
 const timestamp = function() {
@@ -32,3 +34,8 @@ process.on( 'SIGINT', function() {
 
 process.stdout.write( '> ' );
 rli.output.write( timestamp() + eol );
+
+function printUsageAndExit () {
+  console.log('Usage: timestamp <filename>');
+  process.exit(1);
+}
