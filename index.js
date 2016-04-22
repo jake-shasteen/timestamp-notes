@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+'use strict';
 const fs = require( 'fs' );
 const cp = require( 'copy-paste' );
 const path = require( 'path' );
@@ -19,7 +20,7 @@ const timestamp = function() {
 const calculateTimestamp = function(seconds) {
   const minutes = Math.floor(seconds / 60).toString();
   let remainingSeconds = (seconds % 60).toString();
-  let formatedSeconds = remainingSeconds.length === 1 ? remainingSeconds + '0' : remainingSeconds;
+  let formatedSeconds = remainingSeconds.length === 1 ? '0' + remainingSeconds : remainingSeconds;
   return `${minutes}:${formatedSeconds}`;
 }
 
