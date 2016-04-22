@@ -17,9 +17,9 @@ const timestamp = function() {
   return calculateTimestamp(seconds);
 }
 
-const calculateTimestamp = function(seconds) {
-  const minutes = Math.floor(seconds / 60).toString();
-  let remainingSeconds = (seconds % 60).toString();
+const calculateTimestamp = function( seconds ) {
+  const minutes = Math.floor( seconds / 60 ).toString();
+  let remainingSeconds = ( seconds % 60 ).toString();
   let formatedSeconds = remainingSeconds.length === 1 ? '0' + remainingSeconds : remainingSeconds;
   return `${minutes}:${formatedSeconds}`;
 }
@@ -32,7 +32,7 @@ const rli = readline.createInterface({
 let time = process.hrtime();
 
 
-rli.on( 'line', function ( line ) {
+rli.on( 'line', function( line ) {
   rli.output.write( timestamp() + ' - ' + String( line ) + eol );
   process.stdout.write( '> ' );
 });
@@ -48,7 +48,7 @@ process.stdout.write( '> ' );
 rli.output.write( timestamp() + eol );
 
 function printUsageAndExit () {
-  console.log('Usage: timestamp <filename>');
+  console.log( 'Usage: timestamp <filename>' );
   process.exit(1);
 }
 
