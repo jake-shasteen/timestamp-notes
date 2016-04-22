@@ -16,17 +16,19 @@ const timestamp = function() {
 
 const rli = readline.createInterface({
   input: process.stdin,
-  output: fs.createWriteStream( FILEPATH, { flags: 'a' })
+  output: fs.createWriteStream( FILEPATH, { flags: 'a' } )
 });
 
 rli.on( 'line', function ( line ) {
-  rli.output.write( timestamp() + ' > ' + String( line ) + eol);
+  rli.output.write( timestamp() + ' > ' + String( line ) + eol );
+  process.stdout.write( '> ' );
 });
+
 process.on( 'SIGINT', function() {
   rli.output.write( eol );
   process.stdout.write( eol + 'Note saved!' + eol );
   process.exit( 0 );
 });
 
-process.stdout.write( 'Enter note:' + eol );
+process.stdout.write( '> ' );
 rli.output.write( timestamp() + eol );
