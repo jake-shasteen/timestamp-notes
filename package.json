@@ -9,6 +9,5 @@
   "author": "Jake Shasteen",
   "license": "MIT",
   "dependencies": {
-    "moment": "^2.13.0"
   }
 }
