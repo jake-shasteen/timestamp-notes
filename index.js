@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require( 'fs' );
+const cp = require( 'copy-paste' );
 const path = require( 'path' );
 const readline = require( 'readline' );
 const eol = require( 'os' ).EOL;
@@ -18,7 +19,7 @@ const timestamp = function() {
 
 const rli = readline.createInterface({
   input: process.stdin,
-  output: fs.createWriteStream( FILEPATH, { flags: 'a' } )
+  output: fs.createWriteStream( FILEPATH, { flags: 'a+' } )
 });
 
 rli.on( 'line', function ( line ) {
@@ -29,6 +30,7 @@ rli.on( 'line', function ( line ) {
 process.on( 'SIGINT', function() {
   rli.output.write( eol );
   process.stdout.write( eol + 'Note saved!' + eol );
+  cp.copy( fs.readFileSync( FILEPATH ) );
   process.exit( 0 );
 });
 
