@@ -39,7 +39,8 @@ rli.on( 'line', function( line ) {
 
 process.on( 'SIGINT', function() {
   rli.output.write( eol );
-  process.stdout.write( eol + 'Note saved!' + eol );
+  process.stdout.write( eol + 'Saved: ' + FILENAME + eol );
+  process.stdout.write( 'Copied to clipboard.' + eol );
   cp.copy( fs.readFileSync( FILEPATH ) );
   process.exit( 0 );
 });
