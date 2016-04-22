@@ -8,7 +8,7 @@ const moment = require( 'moment' );
 const now = moment();
 
 const FILENAME = now.format() + '.txt';
-const FILEPATH = path.resolve( __dirname, './', FILENAME );
+const FILEPATH = path.resolve( process.cwd(), './', FILENAME );
 
 const timestamp = function() {
   return moment().format( 'hh:mm:ss A' );
