@@ -2,7 +2,7 @@
 
 A simple script for taking timestamped notes
 
-Credit goes to https://github.com/rjreed/node-notes for most of the code.
+Credit goes to https://github.com/rjreed/node-notes for the original code.
 
 ## Usage:
 1. git clone the repo
