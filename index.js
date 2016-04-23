@@ -7,31 +7,48 @@ const path = require( 'path' );
 const readline = require( 'readline' );
 const eol = require( 'os' ).EOL;
 
+/**
+ *  Print help text and exit
+ */
+function printUsageAndExit () {
+  console.log( 'Usage: timestamp <filename>' );
+  process.exit(1);
+}
+
+/**
+ *  Generate timestamp based on diff from start time
+ */
+const timestamp = function() {
+  let seconds = process.hrtime( time )[0];
+  return calculateTimestamp( seconds );
+}
+
+/**
+ * Format seconds into minutes and seconds
+ * @param {number} seconds - Number of seconds to format a timestamp from
+ */
+const calculateTimestamp = function( seconds ) {
+  const minutes = Math.floor( seconds / 60 ).toString();
+  let remainingSeconds = ( seconds % 60 ).toString();
+  let formattedSeconds = remainingSeconds.length === 1 ? '0' + remainingSeconds : remainingSeconds;
+  return `${minutes}:${formattedSeconds}`;
+}
+
+// Check for appropriate number of arguments
 if ( process.argv.length !== 3 ) printUsageAndExit();
 
 const FILENAME = `${process.argv[2]}.txt`;
 const FILEPATH = path.resolve( process.cwd(), './', FILENAME );
-
-const timestamp = function() {
-  let seconds = process.hrtime(time)[0];
-  return calculateTimestamp(seconds);
-}
-
-const calculateTimestamp = function( seconds ) {
-  const minutes = Math.floor( seconds / 60 ).toString();
-  let remainingSeconds = ( seconds % 60 ).toString();
-  let formatedSeconds = remainingSeconds.length === 1 ? '0' + remainingSeconds : remainingSeconds;
-  return `${minutes}:${formatedSeconds}`;
-}
 
 const rli = readline.createInterface({
   input: process.stdin,
   output: fs.createWriteStream( FILEPATH, { flags: 'a+' } )
 });
 
+// initialize time
 let time = process.hrtime();
 
-
+// listeners
 rli.on( 'line', function( line ) {
   rli.output.write( timestamp() + ' - ' + String( line ) + eol );
   process.stdout.write( '> ' );
@@ -45,11 +62,8 @@ process.on( 'SIGINT', function() {
   process.exit( 0 );
 });
 
+// Initial prompt & corresponding line in file
 process.stdout.write( '> ' );
 rli.output.write( timestamp() + eol );
 
-function printUsageAndExit () {
-  console.log( 'Usage: timestamp <filename>' );
-  process.exit(1);
-}
 
