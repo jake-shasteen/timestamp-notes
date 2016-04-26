@@ -1,6 +1,6 @@
 {
   "name": "timestampnotes",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A simple script to take timestamped notes",
   "main": "index.js",
   "bin": {
