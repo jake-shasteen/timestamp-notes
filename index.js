@@ -11,7 +11,7 @@ const eol = require( 'os' ).EOL;
  *  Print help text and exit
  */
 function printUsageAndExit () {
-  console.log( 'Usage: timestamp <filename>' );
+  console.log( 'Usage: timestamp [filename]' );
   process.exit(1);
 }
 
@@ -35,7 +35,12 @@ const calculateTimestamp = function( seconds ) {
 }
 
 // Check for appropriate number of arguments
-if ( process.argv.length !== 3 ) printUsageAndExit();
+if ( process.argv.length > 3 ) printUsageAndExit();
+
+// Default filename
+if ( !process.argv[2] ) {
+  process.argv[2] = new Date().toISOString().slice(0, 19);
+}
 
 const FILENAME = `${process.argv[2]}.txt`;
 const FILEPATH = path.resolve( process.cwd(), './', FILENAME );
